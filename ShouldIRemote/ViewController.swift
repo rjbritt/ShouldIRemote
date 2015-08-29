@@ -55,16 +55,6 @@ class ViewController: UIViewController, UITextFieldDelegate {
         }
         
        maximumTimeInTrafficTextField.text = "\(maximumTimeInTraffic)"
-//        
-//        UIToolbar* numberToolbar = [[UIToolbar alloc]initWithFrame:CGRectMake(0, 0, 320, 50)];
-//        numberToolbar.barStyle = UIBarStyleBlackTranslucent;
-//        numberToolbar.items = [NSArray arrayWithObjects:
-//            [[UIBarButtonItem alloc]initWithTitle:@"Cancel" style:UIBarButtonItemStyleBordered target:self action:@selector(cancelNumberPad)],
-//            [[UIBarButtonItem alloc]initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil],
-//            [[UIBarButtonItem alloc]initWithTitle:@"Apply" style:UIBarButtonItemStyleDone target:self action:@selector(doneWithNumberPad)],
-//        nil];
-//        [numberToolbar sizeToFit];
-//        numberTextField.inputAccessoryView = numberToolbar;
         
         let numberToolbar = UIToolbar(frame: CGRect(x: 0, y: 0, width: self.view.frame.width, height: 50))
         numberToolbar.items = [UIBarButtonItem(title: "Done", style: UIBarButtonItemStyle.Done, target: self, action: "numpadResign")]
