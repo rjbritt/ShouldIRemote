@@ -9,7 +9,7 @@
 import UIKit
 import MapKit
 
-class ViewController: UIViewController {
+class ViewController: UIViewController, UITextFieldDelegate {
 
     @IBOutlet weak var homeMapView: MKMapView!
     @IBOutlet weak var workMapView: MKMapView!
@@ -19,6 +19,9 @@ class ViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        homeAddress.delegate = self
+        workAddress.delegate = self
+        
         // Do any additional setup after loading the view, typically from a nib.
     }
 
@@ -35,5 +38,8 @@ class ViewController: UIViewController {
         Mapping.getAndSetLocation(self.workAddress.text, mapView: self.workMapView)
     }
     
-    
+    func textFieldShouldReturn(textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+        return true
+    }
 }
