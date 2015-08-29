@@ -15,6 +15,7 @@
 		2FB6AA041B9132DB00D75B44 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2FB6AA021B9132DB00D75B44 /* LaunchScreen.xib */; };
 		2FB6AA101B9132DB00D75B44 /* ShouldIRemoteTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FB6AA0F1B9132DB00D75B44 /* ShouldIRemoteTests.swift */; };
 		2FEC1D4B1B915D9900DD170E /* ETAViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FEC1D4A1B915D9900DD170E /* ETAViewController.swift */; };
+		2FEC1D4F1B91AB3300DD170E /* SIRMainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FEC1D4E1B91AB3300DD170E /* SIRMainViewController.swift */; };
 		B2AC20E91B914C2F00A3B58E /* Mapping.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2AC20E81B914C2F00A3B58E /* Mapping.swift */; };
 /* End PBXBuildFile section */
 
@@ -41,6 +42,7 @@
 		2FB6AA0E1B9132DB00D75B44 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		2FB6AA0F1B9132DB00D75B44 /* ShouldIRemoteTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShouldIRemoteTests.swift; sourceTree = "<group>"; };
 		2FEC1D4A1B915D9900DD170E /* ETAViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ETAViewController.swift; sourceTree = "<group>"; };
+		2FEC1D4E1B91AB3300DD170E /* SIRMainViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SIRMainViewController.swift; sourceTree = "<group>"; };
 		B2AC20E81B914C2F00A3B58E /* Mapping.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Mapping.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -85,6 +87,7 @@
 			children = (
 				B26608801B916CF3005AAB6E /* Helpers */,
 				2FB6A9F61B9132DB00D75B44 /* AppDelegate.swift */,
+				2FEC1D4E1B91AB3300DD170E /* SIRMainViewController.swift */,
 				2FB6A9FB1B9132DB00D75B44 /* ViewController.swift */,
 				2FEC1D4A1B915D9900DD170E /* ETAViewController.swift */,
 				2FB6A9FD1B9132DB00D75B44 /* Main.storyboard */,
@@ -231,6 +234,7 @@
 			files = (
 				2FEC1D4B1B915D9900DD170E /* ETAViewController.swift in Sources */,
 				B2AC20E91B914C2F00A3B58E /* Mapping.swift in Sources */,
+				2FEC1D4F1B91AB3300DD170E /* SIRMainViewController.swift in Sources */,
 				2FB6A9FC1B9132DB00D75B44 /* ViewController.swift in Sources */,
 				2FB6A9FA1B9132DB00D75B44 /* ShouldIRemote.xcdatamodeld in Sources */,
 				2FB6A9F71B9132DB00D75B44 /* AppDelegate.swift in Sources */,

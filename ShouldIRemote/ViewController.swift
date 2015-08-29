@@ -24,6 +24,7 @@ class ViewController: UIViewController, UITextFieldDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         homeAddress.delegate = self
         workAddress.delegate = self
 
