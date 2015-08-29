@@ -70,9 +70,11 @@ class SIRMainViewController: UIViewController {
             
             if(currentTraffic > Double(maximumTimeInTraffic!)) {
                 answer.text = "Yes"
+                answer.textColor = UIColor.greenColor()
             }
             else {
                 answer.text = "No"
+                answer.textColor = UIColor.redColor()
             }
         }
         
