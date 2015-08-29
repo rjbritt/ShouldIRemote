@@ -10,33 +10,26 @@ import Foundation
 import MapKit
 public class Mapping {
     
-    public static func GetLocationRegion(address: String) -> (region: CLCircularRegion, placemark: MKPlacemark)
-    {
-        let geocoder = CLGeocoder()
-        var outputRegion = CLCircularRegion()
-        var placeMark: MKPlacemark = MKPlacemark()
-        geocoder.geocodeAddressString(address, completionHandler: { (placemarks, error) -> Void in
-            if let placemarks = placemarks {
-                let topResult = placemarks[0] as! CLPlacemark
-                placeMark = MKPlacemark(placemark: topResult)
-                outputRegion = (placeMark.region as! CLCircularRegion)
-            }
-        })
-        return (outputRegion, placeMark);
+    static var blah: MKPlacemark?;
+    static var bob: MKPlacemark?;
+    
+    static func HasBothLocations() -> Bool {
+        return blah != nil && bob != nil;
     }
     
-    public static func SetMapLocation(address: String, mapView: MKMapView!) -> Void {
-        var circularRegion = GetLocationRegion(address)
-        var region = mapView.region
-        region.center = circularRegion.region.center
-        region.span.longitudeDelta /= 50.0
-        region.span.latitudeDelta /= 50.0
-        
-        mapView.setRegion(region, animated: true)
-        mapView.addAnnotation(circularRegion.placemark)
+   public static func getETAToWork(start: MKPlacemark, end: MKPlacemark) -> NSTimeInterval {
+        var directionsRequest = MKDirectionsRequest()
+        directionsRequest.setSource(MKMapItem(placemark: start))
+        directionsRequest.setDestination(MKMapItem(placemark: end))
+        var directions = MKDirections(request: directionsRequest)
+        var time: NSTimeInterval? = nil
+        directions.calculateETAWithCompletionHandler { (response, error) -> Void in
+            time = response.expectedTravelTime
+        }
+        return time!;
     }
-    
-    public static func getAndSetLocation(address: String, mapView: MKMapView!) -> CLLocationCoordinate2D {
+
+    public static func getAndSetLocation(address: String, mapView: MKMapView!, which: LocationId) -> CLLocationCoordinate2D {
         let geocoder = CLGeocoder()
         var outputRegion: CLCircularRegion = CLCircularRegion()
         geocoder.geocodeAddressString(address, completionHandler: { (placemarks, error) -> Void in
@@ -52,8 +45,20 @@ public class Mapping {
                 
                 mapView.setRegion(region, animated: true)
                 mapView.addAnnotation(placeMark)
+                if which == LocationId.Home {
+                    self.blah = placeMark;
+                }
+                else if which == LocationId.Work {
+                    self.bob = placeMark;
+                }
+                self.HasBothLocations();
             }
         })
         return outputRegion.center;
+    }
+    
+    public enum LocationId {
+        case Home
+        case Work
     }
 }
