@@ -14,10 +14,13 @@ class ETAViewController: UIViewController {
     var dataVC:ViewController?
     
     @IBOutlet weak var lblTraffic: UILabel!
+    @IBOutlet weak var lblNoTraffic: UILabel!
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        dataVC?.getETAToWork(lblTraffic)
+        dataVC?.getETAToWork(lblTraffic, baseline: false)
+        dataVC?.getETAToWork(lblNoTraffic, baseline: true)
+        
         // Do any additional setup after loading the view.
     }
     

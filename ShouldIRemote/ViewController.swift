@@ -9,6 +9,12 @@
 import UIKit
 import MapKit
 
+enum LocationId {
+    case Home
+    case Work
+}
+
+
 class ViewController: UIViewController, UITextFieldDelegate {
     
     @IBOutlet weak var homeMapView: MKMapView!
@@ -44,7 +50,6 @@ class ViewController: UIViewController, UITextFieldDelegate {
             workAddress.text = workAddressText
             setWorkLocationForLatitude(workLat, andLongitude: workLong!)
         }
-        // Do any additional setup after loading the view, typically from a nib.
     }
     
     override func didReceiveMemoryWarning() {
@@ -95,16 +100,28 @@ class ViewController: UIViewController, UITextFieldDelegate {
         })
     }
     
-    func getETAToWork(labelToSet: UILabel) -> Void {
+    func getETAToWork(labelToSet: UILabel, baseline:Bool) -> Void {
         var directionsRequest = MKDirectionsRequest()
+        
+        if baseline {
+            let today = NSDate()
+            let gregorian = NSCalendar(identifier: NSCalendarIdentifierGregorian)
+            let components = gregorian!.components(.CalendarUnitMonth | .CalendarUnitDay | .CalendarUnitYear | .HourCalendarUnit, fromDate: today)
+            components.day -= 1
+            components.hour = 1
+            let yesterday = gregorian?.dateFromComponents(components);
+            
+            directionsRequest.departureDate = yesterday
+        }
+        
         directionsRequest.setSource(MKMapItem(placemark: startMark))
         directionsRequest.setDestination(MKMapItem(placemark: endMark))
         var directions = MKDirections(request: directionsRequest)
         directions.calculateETAWithCompletionHandler { (response, error) -> Void in
-            if let response = response
-            {
-                labelToSet.text = "\(response.expectedTravelTime / 60.0) minutes"
-                
+            if let response = response {
+                let fmt = NSNumberFormatter()
+                fmt.maximumFractionDigits = 2
+                labelToSet.text = fmt.stringFromNumber(response.expectedTravelTime / 60.0)! + " minutes"
             }
             else {
                 labelToSet.text = "Error: \(error.description)"
@@ -114,11 +131,7 @@ class ViewController: UIViewController, UITextFieldDelegate {
         }
     }
     
-    enum LocationId {
-        case Home
-        case Work
-    }
-    
+
     func textFieldShouldReturn(textField: UITextField) -> Bool {
         textField.resignFirstResponder()
         return true
