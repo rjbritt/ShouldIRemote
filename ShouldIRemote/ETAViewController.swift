@@ -18,9 +18,12 @@ class ETAViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        Mapping.getETAToWork(homeAddress!, end: workAddress!, labelToSet: lblTraffic );
         
         // Do any additional setup after loading the view.
+    }
+    
+    override func viewDidAppear(animated: Bool) {
+        Mapping.getETAToWork(homeAddress!, end: workAddress!, labelToSet: lblTraffic);
     }
 
     override func didReceiveMemoryWarning() {

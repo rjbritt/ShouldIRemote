@@ -10,12 +10,14 @@ import Foundation
 import MapKit
 public class Mapping {
     
-    static var homeLocation: MKPlacemark?;
-    static var workLocation: MKPlacemark?;
+    static var homeLocation: MKPlacemark?
+    static var workLocation: MKPlacemark?
+
+    static var time:NSTimeInterval?
     
-    static func HasBothLocations() -> Bool {
-        return homeLocation != nil && workLocation != nil;
-    }
+    static var hasBothLocations = false
+    
+    
     
     public static func getETAToWork(start: MKPlacemark, end: MKPlacemark, labelToSet: UILabel) -> Void {
         var directionsRequest = MKDirectionsRequest()
@@ -26,14 +28,15 @@ public class Mapping {
             if let response = response
             {
                 labelToSet.text = "\(response.expectedTravelTime / 60.0) minutes"
+                
             }
             else {
                 labelToSet.text = "Error: \(error.description)"
             }
             
+            
         }
     }
-
     public static func getAndSetLocation(address: String, mapView: MKMapView!, which: LocationId) -> CLLocationCoordinate2D {
         let geocoder = CLGeocoder()
         var outputRegion: CLCircularRegion = CLCircularRegion()
@@ -60,6 +63,14 @@ public class Mapping {
             }
         })
         return outputRegion.center;
+    }
+    
+    public static func setHomeLocationForLatitude(latitude:Double, andLongitude longitude:Double) {
+        homeLocation = MKPlacemark(coordinate: CLLocationCoordinate2D(latitude: latitude, longitude: longitude), addressDictionary: nil)
+    }
+   
+    public static func setWorkLocationForLatitude(latitude:Double, andLongitude longitude:Double) {
+        workLocation = MKPlacemark(coordinate: CLLocationCoordinate2D(latitude: latitude, longitude: longitude), addressDictionary: nil)
     }
     
     public enum LocationId {
