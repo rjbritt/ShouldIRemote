@@ -28,67 +28,12 @@ class ViewController: UIViewController {
     }
 
     @IBAction func homeAddressEntered(sender: AnyObject) {
-        let geocoder = CLGeocoder()
-        geocoder.geocodeAddressString(homeAddress.text, completionHandler: { (placemarks, error) -> Void in
-            if let placemarks = placemarks {
-                let topResult = placemarks[0] as! CLPlacemark
-                let placeMark = MKPlacemark(placemark: topResult)
-                var region = self.homeMapView.region
-                
-                region.center = (placeMark.region as! CLCircularRegion).center
-                region.span.longitudeDelta /= 50.0
-                region.span.latitudeDelta /= 50.0
-                
-                self.homeMapView.setRegion(region, animated: true)
-                self.homeMapView.addAnnotation(placeMark)
-                
-            
-                
-            }
-            
-        })
-        
+        Mapping.getAndSetLocation(self.homeAddress.text, mapView: self.homeMapView)
     }
 
     @IBAction func workAddressEntered(sender: AnyObject) {
-        
-        let geocoder = CLGeocoder()
-        geocoder.geocodeAddressString(workAddress.text, completionHandler: { (placemarks, error) -> Void in
-            if let placemarks = placemarks {
-                let topResult = placemarks[0] as! CLPlacemark
-                let placeMark = MKPlacemark(placemark: topResult)
-                var region = self.workMapView.region
-                
-                region.center = (placeMark.region as! CLCircularRegion).center
-                region.span.longitudeDelta /= 50.0
-                region.span.latitudeDelta /= 50.0
-                
-                self.workMapView.setRegion(region, animated: true)
-                self.workMapView.addAnnotation(placeMark)
-                
-                
-                
-            }
-            
-        })
+        Mapping.getAndSetLocation(self.workAddress.text, mapView: self.workMapView)
     }
+    
+    
 }
-
-//
-//CLGeocoder *geocoder = [[CLGeocoder alloc] init];
-//[geocoder geocodeAddressString:location
-//completionHandler:^(NSArray* placemarks, NSError* error){
-//if (placemarks && placemarks.count > 0) {
-//CLPlacemark *topResult = [placemarks objectAtIndex:0];
-//MKPlacemark *placemark = [[MKPlacemark alloc] initWithPlacemark:topResult];
-//
-//MKCoordinateRegion region = self.mapView.region;
-//region.center = placemark.region.center;
-//region.span.longitudeDelta /= 8.0;
-//region.span.latitudeDelta /= 8.0;
-//
-//[self.mapView setRegion:region animated:YES];
-//[self.mapView addAnnotation:placemark];
-//}
-//}
-//];

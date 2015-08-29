@@ -14,6 +14,7 @@
 		2FB6AA011B9132DB00D75B44 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2FB6AA001B9132DB00D75B44 /* Images.xcassets */; };
 		2FB6AA041B9132DB00D75B44 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2FB6AA021B9132DB00D75B44 /* LaunchScreen.xib */; };
 		2FB6AA101B9132DB00D75B44 /* ShouldIRemoteTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FB6AA0F1B9132DB00D75B44 /* ShouldIRemoteTests.swift */; };
+		B2AC20E91B914C2F00A3B58E /* Mapping.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2AC20E81B914C2F00A3B58E /* Mapping.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -38,6 +39,7 @@
 		2FB6AA091B9132DB00D75B44 /* ShouldIRemoteTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ShouldIRemoteTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		2FB6AA0E1B9132DB00D75B44 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		2FB6AA0F1B9132DB00D75B44 /* ShouldIRemoteTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShouldIRemoteTests.swift; sourceTree = "<group>"; };
+		B2AC20E81B914C2F00A3B58E /* Mapping.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Mapping.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -94,6 +96,7 @@
 			isa = PBXGroup;
 			children = (
 				2FB6A9F51B9132DB00D75B44 /* Info.plist */,
+				B2AC20E81B914C2F00A3B58E /* Mapping.swift */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -215,6 +218,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B2AC20E91B914C2F00A3B58E /* Mapping.swift in Sources */,
 				2FB6A9FC1B9132DB00D75B44 /* ViewController.swift in Sources */,
 				2FB6A9FA1B9132DB00D75B44 /* ShouldIRemote.xcdatamodeld in Sources */,
 				2FB6A9F71B9132DB00D75B44 /* AppDelegate.swift in Sources */,
@@ -415,6 +419,7 @@
 				2FB6AA151B9132DB00D75B44 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		2FB6AA161B9132DB00D75B44 /* Build configuration list for PBXNativeTarget "ShouldIRemoteTests" */ = {
 			isa = XCConfigurationList;
@@ -423,6 +428,7 @@
 				2FB6AA181B9132DB00D75B44 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 
