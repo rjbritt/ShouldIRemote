@@ -46,9 +46,6 @@ class SIRMainViewController: UIViewController {
                 setWorkLocationForLatitude(workLat, andLongitude: workLong!)
             }
         }
-        else {
-        }
-        
         getETAToWork(baseLineTime, baseline: true)
         getETAToWork(currentTime, baseline: false)
         
@@ -126,7 +123,13 @@ class SIRMainViewController: UIViewController {
                 NSNotificationCenter.defaultCenter().postNotificationName("setAnswerNotif", object: nil)
             }
             else {
-                labelToSet.text = "Error: \(error.description)"
+                let alert = UIAlertController(title: "Oops!", message: "You can't drive there.", preferredStyle:UIAlertControllerStyle.Alert)
+                alert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler: { (alert: UIAlertAction!) in
+                    let storyboard = UIStoryboard(name: "Main", bundle: nil)
+                    self.presentViewController((storyboard.instantiateViewControllerWithIdentifier("getAddressVC") as? ViewController)!, animated: true, completion: nil)
+
+                    }))
+                self.presentViewController(alert, animated: true, completion: nil)
             }
             
             if baseline {
