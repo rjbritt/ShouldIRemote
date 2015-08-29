@@ -44,4 +44,9 @@ class ViewController: UIViewController, UITextFieldDelegate {
         textField.resignFirstResponder()
         return true
     }
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        var blah = (segue.destinationViewController as! ETAViewController)
+        blah.homeAddress = Mapping.homeLocation!;
+        blah.workAddress = Mapping.workLocation!;
+    }
 }

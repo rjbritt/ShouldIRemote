@@ -10,23 +10,28 @@ import Foundation
 import MapKit
 public class Mapping {
     
-    static var blah: MKPlacemark?;
-    static var bob: MKPlacemark?;
+    static var homeLocation: MKPlacemark?;
+    static var workLocation: MKPlacemark?;
     
     static func HasBothLocations() -> Bool {
-        return blah != nil && bob != nil;
+        return homeLocation != nil && workLocation != nil;
     }
     
-   public static func getETAToWork(start: MKPlacemark, end: MKPlacemark) -> NSTimeInterval {
+    public static func getETAToWork(start: MKPlacemark, end: MKPlacemark, labelToSet: UILabel) -> Void {
         var directionsRequest = MKDirectionsRequest()
         directionsRequest.setSource(MKMapItem(placemark: start))
         directionsRequest.setDestination(MKMapItem(placemark: end))
         var directions = MKDirections(request: directionsRequest)
-        var time: NSTimeInterval? = nil
         directions.calculateETAWithCompletionHandler { (response, error) -> Void in
-            time = response.expectedTravelTime
+            if let response = response
+            {
+                labelToSet.text = "\(response.expectedTravelTime / 60.0) minutes"
+            }
+            else {
+                labelToSet.text = "Error: \(error.description)"
+            }
+            
         }
-        return time!;
     }
 
     public static func getAndSetLocation(address: String, mapView: MKMapView!, which: LocationId) -> CLLocationCoordinate2D {
@@ -45,13 +50,13 @@ public class Mapping {
                 
                 mapView.setRegion(region, animated: true)
                 mapView.addAnnotation(placeMark)
+                
                 if which == LocationId.Home {
-                    self.blah = placeMark;
+                    self.homeLocation = placeMark;
                 }
                 else if which == LocationId.Work {
-                    self.bob = placeMark;
+                    self.workLocation = placeMark;
                 }
-                self.HasBothLocations();
             }
         })
         return outputRegion.center;

@@ -183,6 +183,9 @@
                             <constraint firstItem="CMU-vh-hih" firstAttribute="leading" secondItem="Qck-Pj-aLo" secondAttribute="trailing" constant="51" id="s83-OY-HEN"/>
                         </constraints>
                     </view>
+                    <connections>
+                        <outlet property="lblTraffic" destination="gE1-d0-Xzv" id="sdq-Tv-mSQ"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="3mI-Oh-Ptc" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>

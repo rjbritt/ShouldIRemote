@@ -7,12 +7,19 @@
 //
 
 import UIKit
+import MapKit
 
 class ETAViewController: UIViewController {
 
+    var homeAddress: MKPlacemark?;
+    var workAddress: MKPlacemark?;
+    
+    @IBOutlet weak var lblTraffic: UILabel!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        Mapping.getETAToWork(homeAddress!, end: workAddress!, labelToSet: lblTraffic );
+        
         // Do any additional setup after loading the view.
     }
 
