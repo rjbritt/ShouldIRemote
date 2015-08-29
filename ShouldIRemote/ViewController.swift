@@ -19,6 +19,7 @@ class ViewController: UIViewController, UITextFieldDelegate {
     
     @IBOutlet weak var homeMapView: MKMapView!
     @IBOutlet weak var workMapView: MKMapView!
+    @IBOutlet weak var maximumTimeInTrafficTextField: UITextField!
     
     @IBOutlet weak var homeAddress: UITextField!
     @IBOutlet weak var workAddress: UITextField!
@@ -27,6 +28,7 @@ class ViewController: UIViewController, UITextFieldDelegate {
 
     var startMark:MKPlacemark?
     var endMark:MKPlacemark?
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -40,6 +42,7 @@ class ViewController: UIViewController, UITextFieldDelegate {
         let workLong = userDefaults.objectForKey("workLongitude") as? Double
         let homeAddressText = userDefaults.objectForKey("homeAddress") as? String
         let workAddressText = userDefaults.objectForKey("workAddress") as? String
+        let maximumTimeInTraffic = userDefaults.integerForKey("maximumTimeInTraffic")
 
         if let homeLat = homeLat {
             homeAddress.text = homeAddressText
@@ -50,6 +53,8 @@ class ViewController: UIViewController, UITextFieldDelegate {
             workAddress.text = workAddressText
             setWorkLocationForLatitude(workLat, andLongitude: workLong!)
         }
+        
+       maximumTimeInTrafficTextField.text = "\(maximumTimeInTraffic)"
     }
     
     override func didReceiveMemoryWarning() {
@@ -122,21 +127,38 @@ class ViewController: UIViewController, UITextFieldDelegate {
                 let fmt = NSNumberFormatter()
                 fmt.maximumFractionDigits = 2
                 labelToSet.text = fmt.stringFromNumber(response.expectedTravelTime / 60.0)! + " minutes"
+                
+
             }
             else {
                 labelToSet.text = "Error: \(error.description)"
             }
             
-            
         }
+        
+ 
     }
     
 
+    @IBAction func dismiss(sender: AnyObject) {
+        if(homeAddress.text != "" && workAddress.text != "" && maximumTimeInTrafficTextField.text != "") {
+            self.presentingViewController?.dismissViewControllerAnimated(true, completion: nil)
+        }
+        else {
+            let alert = UIAlertController(title: "Oops!", message: "You missed a text box", preferredStyle:UIAlertControllerStyle.Alert)
+            alert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler: nil))
+            self.presentViewController(alert, animated: true, completion: nil)
+        }
+    }
     func textFieldShouldReturn(textField: UITextField) -> Bool {
         textField.resignFirstResponder()
         return true
     }
     
+    @IBAction func trafficTimeInput(sender: AnyObject) {
+        self.userDefaults.setInteger((sender as! UITextField).text.toInt()!, forKey: "maximumTimeInTraffic")
+        self.userDefaults.synchronize()
+    }
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         let destinationVC = segue.destinationViewController as? ETAViewController
         destinationVC?.dataVC = self
@@ -146,10 +168,30 @@ class ViewController: UIViewController, UITextFieldDelegate {
     
     func setHomeLocationForLatitude(latitude:Double, andLongitude longitude:Double) {
         startMark = MKPlacemark(coordinate: CLLocationCoordinate2D(latitude: latitude, longitude: longitude), addressDictionary: nil)
+
+//        var region = homeMapView.region
+//        
+//        region.center = (startMark?.region as! CLCircularRegion).center
+//        region.span.longitudeDelta /= 50.0
+//        region.span.latitudeDelta /= 50.0
+//        
+//        homeMapView.setRegion(region, animated: true)
+//        homeMapView.addAnnotation(startMark!)
+
     }
     
     func setWorkLocationForLatitude(latitude:Double, andLongitude longitude:Double) {
         endMark = MKPlacemark(coordinate: CLLocationCoordinate2D(latitude: latitude, longitude: longitude), addressDictionary: nil)
+        
+//        var region = workMapView.region
+//        
+//        region.center = (endMark?.region as! CLCircularRegion).center
+//        region.span.longitudeDelta /= 50.0
+//        region.span.latitudeDelta /= 50.0
+//        
+//        workMapView.setRegion(region, animated: true)
+//        workMapView.addAnnotation(endMark!)
+
     }
     
 }

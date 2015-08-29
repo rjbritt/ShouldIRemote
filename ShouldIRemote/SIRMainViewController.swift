@@ -12,23 +12,33 @@ import MapKit
 class SIRMainViewController: UIViewController {
 
     @IBOutlet weak var answer: UILabel!
-    @IBOutlet weak var explanation: UILabel!
-    @IBOutlet weak var explanation2: UILabel!
+    @IBOutlet weak var baseLineTime: UILabel!
+    @IBOutlet weak var currentTime: UILabel!
     
     var startMark: MKPlacemark?
     var endMark: MKPlacemark?
     
+    var homeLat:Double?
+    var homeLong:Double?
+    var workLat:Double?
+    var workLong:Double?
+    var homeAddressText:String?
+    var workAddressText:String?
+    var maximumTimeInTraffic:Int?
+    
     let userDefaults = NSUserDefaults.standardUserDefaults()
     
-    override func viewDidLoad() {
-        super.viewDidLoad()
+    override func viewWillAppear(animated: Bool) {
+//        super.viewDidLoad()
+        super.viewWillAppear(animated)
         
-        let homeLat = userDefaults.objectForKey("homeLatitude") as? Double
-        let homeLong = userDefaults.objectForKey("homeLongitude") as? Double
-        let workLat = userDefaults.objectForKey("workLatitude") as? Double
-        let workLong = userDefaults.objectForKey("workLongitude") as? Double
-        let homeAddressText = userDefaults.objectForKey("homeAddress") as? String
-        let workAddressText = userDefaults.objectForKey("workAddress") as? String
+         homeLat = userDefaults.objectForKey("homeLatitude") as? Double
+         homeLong = userDefaults.objectForKey("homeLongitude") as? Double
+         workLat = userDefaults.objectForKey("workLatitude") as? Double
+         workLong = userDefaults.objectForKey("workLongitude") as? Double
+         homeAddressText = userDefaults.objectForKey("homeAddress") as? String
+         workAddressText = userDefaults.objectForKey("workAddress") as? String
+        maximumTimeInTraffic = userDefaults.integerForKey("maximumTimeInTraffic")
         
         if let homeLat = homeLat {
             setHomeLocationForLatitude(homeLat, andLongitude: homeLong!)
@@ -37,22 +47,28 @@ class SIRMainViewController: UIViewController {
             }
         }
         else {
-            
         }
         
-        getETAToWork(explanation, baseline: false)
-        getETAToWork(explanation2, baseline: true)
+        getETAToWork(baseLineTime, baseline: true)
+        getETAToWork(currentTime, baseline: false)
         
         NSNotificationCenter.defaultCenter().addObserver(self, selector:"setAnswer2:", name: "setAnswerNotif", object: nil)
 
     }
     
+    override func viewWillLayoutSubviews() {
+        if homeLong == nil {
+            let storyboard = UIStoryboard(name: "Main", bundle: nil)
+            self.presentViewController((storyboard.instantiateViewControllerWithIdentifier("getAddressVC") as? ViewController)!, animated: true, completion: nil)
+        }
+    }
+    
     func setAnswer2(ntf:NSNotification) {
-        if((explanation2.text != "Calculating...") && (explanation.text != "Calculating...")) {
-            let baseLineTraffic = getNumberFromLabelText(explanation.text!)
-            let currentTraffic = getNumberFromLabelText(explanation2.text!)
+        if((currentTime.text != "Calculating...") && (baseLineTime.text != "Calculating...")) {
+            let baseLineTraffic = getNumberFromLabelText(baseLineTime.text!)
+            let currentTraffic = getNumberFromLabelText(currentTime.text!)
             
-            if(currentTraffic > baseLineTraffic) {
+            if(currentTraffic > Double(maximumTimeInTraffic!)) {
                 answer.text = "Yes"
             }
             else {
@@ -111,22 +127,28 @@ class SIRMainViewController: UIViewController {
                 labelToSet.text = "Error: \(error.description)"
             }
             
+            if baseline {
+                labelToSet.text! += " in average traffic"
+            }
+            else {
+                labelToSet.text! += " in current traffic"
+            }
+            
+            labelToSet.adjustsFontSizeToFitWidth = true
             
         }
     }
-    @IBAction func dismissVC(sender: AnyObject) {
-        self.dismissViewControllerAnimated(true, completion: nil)
-    }
 
-    /*
+    
     // MARK: - Navigation
+//
+//    // In a storyboard-based application, you will often want to do a little preparation before navigation
+//    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+//        // Get the new view controller using segue.destinationViewController.
+//        // Pass the selected object to the new view controller.
+//        (segue.destinationViewController as? ViewController)
+//    }
 
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
 
 }
 
