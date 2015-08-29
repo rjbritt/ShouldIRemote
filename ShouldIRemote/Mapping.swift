@@ -17,7 +17,7 @@ public class Mapping {
         return blah != nil && bob != nil;
     }
     
-   public static func getDirections(start: MKPlacemark, end: MKPlacemark) -> NSTimeInterval {
+   public static func getETAToWork(start: MKPlacemark, end: MKPlacemark) -> NSTimeInterval {
         var directionsRequest = MKDirectionsRequest()
         directionsRequest.setSource(MKMapItem(placemark: start))
         directionsRequest.setDestination(MKMapItem(placemark: end))
