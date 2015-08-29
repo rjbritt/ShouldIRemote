@@ -28,11 +28,13 @@ class ViewController: UIViewController {
     }
 
     @IBAction func homeAddressEntered(sender: AnyObject) {
-        Mapping.getAndSetLocation(self.homeAddress.text, mapView: self.homeMapView)
+        var out: MKPlacemark? = nil;
+        Mapping.getAndSetLocation(self.homeAddress.text, mapView: self.homeMapView, which: Mapping.LocationId.Home)
     }
 
     @IBAction func workAddressEntered(sender: AnyObject) {
-        Mapping.getAndSetLocation(self.workAddress.text, mapView: self.workMapView)
+        var out: MKPlacemark? = nil;
+        Mapping.getAndSetLocation(self.workAddress.text, mapView: self.workMapView, which: Mapping.LocationId.Work)
     }
     
     
