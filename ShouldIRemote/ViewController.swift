@@ -164,8 +164,13 @@ class ViewController: UIViewController, UITextFieldDelegate {
     }
     
     @IBAction func trafficTimeInput(sender: AnyObject) {
-        self.userDefaults.setInteger((sender as! UITextField).text.toInt()!, forKey: "maximumTimeInTraffic")
-        self.userDefaults.synchronize()
+        if let textField = (sender as? UITextField) {
+            if let maxTime = textField.text.toInt() {
+            self.userDefaults.setInteger(maxTime, forKey: "maximumTimeInTraffic")
+            self.userDefaults.synchronize()
+            }
+        }
+
     }
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         let destinationVC = segue.destinationViewController as? ETAViewController
