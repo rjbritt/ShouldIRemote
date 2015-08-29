@@ -7,9 +7,16 @@
 //
 
 import UIKit
+import MapKit
 
 class ViewController: UIViewController {
 
+    @IBOutlet weak var homeMapView: MKMapView!
+    @IBOutlet weak var workMapView: MKMapView!
+    
+    @IBOutlet weak var homeAddress: UITextField!
+    @IBOutlet weak var workAddress: UITextField!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
@@ -20,6 +27,10 @@ class ViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
 
+    @IBAction func homeAddressEntered(sender: AnyObject) {
+    }
 
+    @IBAction func workAddressEntered(sender: AnyObject) {
+    }
 }
 
